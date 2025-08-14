@@ -1,0 +1,7 @@
+flowchart LR
+  user[User] --> web[Vue SPA]
+  web --> api[.NET API/BFF]
+  api --> db[(PostgreSQL)]
+  web --> idp[(OIDC Provider)]
+  ios[iOS App] --> idp
+  ios --> api

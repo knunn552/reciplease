@@ -1,0 +1,34 @@
+flowchart LR
+  %% C2: Container diagram (start here)
+  actor(User):::ext
+
+  subgraph Edge["User Device / Browser"]
+    User
+  end
+
+  subgraph SaaS["External IdP (Auth0)"]
+    A0[Auth0<br/>(OIDC Provider)]
+  end
+
+  subgraph App["Your System"]
+    API[.NET Web/API<br/>(Token validation, AuthZ, BFF cookies?)]
+    DB[(Postgres)]
+    RDS[(Redis):::optional]
+  end
+
+  subgraph Providers["External Services"]
+    MSG[Email/SMS Provider]:::ext
+  end
+
+  %% Flows
+  User -- "Login redirect" --> A0
+  A0 -- "ID/Access token (OIDC)" --> User
+  User -- "HTTPS (JWT/cookie)" --> API
+  API -- "OIDC discovery + JWKS (cached)" --> A0
+  API -- "SQL (app data, roles)" --> DB
+  API -- "MFA/email events" --> MSG
+  API <-.-> RDS
+
+  %% Notes
+  classDef optional stroke-dasharray: 3 3,opacity:0.8
+  classDef ext fill:#f6f6f6,stroke:#bbb,color:#333

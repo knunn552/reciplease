@@ -1,0 +1,11 @@
+# Dependabot tracks dependencies that this project relies on throws an alert when vulnerabilities are found in dependencies being used in this project
+# After pushing, it may be worth checking to see if all the settings described here: https://docs.github.com/en/code-security/getting-started/dependabot-quickstart-guide are enabled on GitHub
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/apps/web-vue"
+    schedule: { interval: "weekly" }
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule: { interval: "weekly" }

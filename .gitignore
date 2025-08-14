@@ -1,0 +1,125 @@
+## Vue.js / TypeScript projects
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage
+.nyc_output
+lib-cov
+*.lcov
+
+# Build outputs
+dist/
+tmp/
+out-tsc/
+build/Release
+stats.html
+
+# Dependencies
+node_modules/
+bower_components/
+jspm_packages/
+typings/
+
+# Caches
+.npm
+.eslintcache
+.sass-cache
+.yarn-integrity
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# Generated API clients
+/packages/openapi/**/generated/
+
+# IDEs & Editors
+.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Misc
+connect.lock
+libpeerconnection.log
+npm-debug.log
+testem.log
+
+# E2E
+e2e/*.js
+e2e/*.map
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Server config
+env/development.js
+docker-compose.local.yml
+*.azcli
+
+---
+
+## iOS / Swift projects
+
+# Xcode
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcuserdatad
+*.xccheckout
+*.moved-aside
+*.pbxuser
+*.mode1v3
+*.mode2v3
+.DerivedData/
+
+# Swift Package Manager
+.build/
+Packages/
+Package.pins
+Package.resolved
+
+---
+
+## Android projects
+
+# Gradle & build
+.gradle/
+**/build/
+local.properties
+
+# Android Studio
+.idea/
+*.iml
+
+---
+
+## General dev artifacts
+
+# Editor swap/backup files
+*~
+*.swp
+*.swo
+
+# CI/CD build outputs
+site/
+*.coverage
