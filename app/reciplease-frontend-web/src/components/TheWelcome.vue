@@ -9,11 +9,33 @@ import SupportIcon from './icons/IconSupport.vue'
 const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
 
 import { useAuth0 } from '@auth0/auth0-vue'
+import { useWeatherService, type WeatherForecast } from '@/services/external-api.service'
+const { getWeather } = useWeatherService();
 import LoginButton from './LoginButton.vue'
 import SignupButton from './SignupButton.vue'
 import LogoutButton from './LogoutButton.vue'
+import { ref, computed } from "vue";
+
+const { user } = useAuth0();
+
+const code = user ? JSON.stringify(user.value, null, 2) : "";
+
 
 const { isAuthenticated, isLoading } = useAuth0()
+
+const forecasts = ref<WeatherForecast[]>([]);
+const errorMsg = ref<string | null>(null);
+const userJson = computed(() => (user.value ? JSON.stringify(user.value, null, 2) : ""));
+
+async function onGetWeather() {
+  errorMsg.value = null;
+  try {
+    forecasts.value = await getWeather();
+  } catch (e: any) {
+    errorMsg.value = e?.message ?? "Failed to fetch weather";
+  }
+}
+
 
 </script>
 
@@ -23,12 +45,30 @@ const { isAuthenticated, isLoading } = useAuth0()
 <div v-if="!isLoading" class="mb-4 flex gap-2">
   <template v-if="isAuthenticated">
     <LogoutButton />
+
+    <button> Click 4 Weather Data </button>
+    <p v-bind="user"></p>
   </template>
   <template v-else>
     <LoginButton />
     <SignupButton />
   </template>
 </div>
+
+ <div v-if="errorMsg" style="color:red">{{ errorMsg }}</div>
+
+  <pre v-if="userJson">{{ userJson }}</pre>
+
+  <div>
+    <p>Here is where we'll test the request</p>
+    <button @click="onGetWeather">Get Weather Data</button>
+
+    <ul v-if="forecasts.length">
+      <li v-for="(f, i) in forecasts" :key="i">
+        {{ f.date }} — {{ f.temperatureC }}°C — {{ f.summary }}
+      </li>
+    </ul>
+  </div>
 
 
   <WelcomeItem>
